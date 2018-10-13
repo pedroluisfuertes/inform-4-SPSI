@@ -1,0 +1,47 @@
+
+#Punto 5: Contraseña, nosalt
+openssl enc -aes-256-ecb -k PracticasDeSeguridad2018 -in input.bin -out input_aes_256_ecd_con_contra_nosalt.bin -nosalt;
+openssl enc -aes-256-ecb -k PracticasDeSeguridad2018 -in input1.bin -out input1_aes_256_ecd_con_contra_nosalt.bin -nosalt;
+openssl enc -aes-256-cbc -k PracticasDeSeguridad2018 -in input.bin -out input_aes_256_cbc_con_contra_nosalt.bin -nosalt;
+openssl enc -aes-256-cbc -k PracticasDeSeguridad2018 -in input1.bin -out input1_aes_256_cbc_con_contra_nosalt.bin -nosalt;
+openssl enc -aes-256-ofb -k PracticasDeSeguridad2018 -in input.bin -out input_aes_256_ofb_con_contra_nosalt.bin -nosalt;
+openssl enc -aes-256-ofb -k PracticasDeSeguridad2018 -in input1.bin -out input1_aes_256_ofb_con_contra_nosalt.bin -nosalt;
+
+#Punto 6 
+openssl enc -aes-192-ofb -K 9876543210fedcbaabcdef01 -iv 0123456789abcdef -in input.bin -out output.bin
+
+#Punto 7
+openssl enc -aes-192-ofb -K 9876543210fedcbaabcdef01 -iv 0123456789abcdef -in output.bin -out output_desnc.bin -d
+
+#Punto 8
+openssl enc -aes-192-ofb -K 9876543210fedcbaabcdef01 -iv 0123456789abcdef -in output.bin -out output2.bin
+
+#Punto 9
+openssl enc -aes-192-ofb -k PracticasDeSeguridad2018 -in input.bin -out output_contra.bin
+openssl enc -aes-192-ofb -k PracticasDeSeguridad2018 -in output_contra.bin -out output_contra_desc.bin -d
+openssl enc -aes-192-ofb -k PracticasDeSeguridad2018 -in output_contra.bin -out output_contra2.bin
+
+openssl enc -aes-192-ofb -k PracticasDeSeguridad2018 -in input.bin -out output_contra_nosalt.bin -nosalt
+openssl enc -aes-192-ofb -k PracticasDeSeguridad2018 -in output_contra_nosalt.bin -out output_contra2_nosalt.bin -nosalt
+
+#Punto 11
+openssl enc -camellia-256-ecb -K 9876543210fedcbaabcdef0123456789 -iv 0123456789abcdef -in input1.bin -out input1_camellia_256_ecb_con_key_y_iv.bin;
+openssl enc -camellia-256-ecb -K 9876543210fedcbaabcdef0123456789 -iv 0123456789abcdef -in input.bin -out input_camellia_256_ecb_con_key_y_iv.bin;
+openssl enc -camellia-256-cbc -K 9876543210fedcbaabcdef0123456789 -iv 0123456789abcdef -in input.bin -out input_camellia_256_cbc_con_key_y_iv.bin;
+openssl enc -camellia-256-cbc -K 9876543210fedcbaabcdef0123456789 -iv 0123456789abcdef -in input1.bin -out input1_camellia_256_cbc_con_key_y_iv.bin;
+openssl enc -camellia-256-ofb -K 9876543210fedcbaabcdef0123456789 -iv 0123456789abcdef -in input.bin -out input_camellia_256_ofb_con_key_y_iv.bin;
+openssl enc -camellia-256-ofb -K 9876543210fedcbaabcdef0123456789 -iv 0123456789abcdef -in input1.bin -out input1_camellia_256_ofb_con_key_y_iv.bin;
+
+openssl enc -camellia-256-ecb -k PracticasDeSeguridad2018 -in input.bin -out input_camellia_256_ecd_con_contra.bin;
+openssl enc -camellia-256-ecb -k PracticasDeSeguridad2018 -in input1.bin -out input1_camellia_256_ecd_con_contra.bin;
+openssl enc -camellia-256-cbc -k PracticasDeSeguridad2018 -in input.bin -out input_camellia_256_cbc_con_contra.bin;
+openssl enc -camellia-256-cbc -k PracticasDeSeguridad2018 -in input1.bin -out input1_camellia_256_cbc_con_contra.bin;
+openssl enc -camellia-256-ofb -k PracticasDeSeguridad2018 -in input.bin -out input_camellia_256_ofb_con_contra.bin;
+openssl enc -camellia-256-ofb -k PracticasDeSeguridad2018 -in input1.bin -out input1_camellia_256_ofb_con_contra.bin;
+
+openssl enc -camellia-256-ecb -k PracticasDeSeguridad2018 -in input.bin -out input_camellia_256_ecd_con_contra_nosalt.bin -nosalt;
+openssl enc -camellia-256-ecb -k PracticasDeSeguridad2018 -in input1.bin -out input1_camellia_256_ecd_con_contra_nosalt.bin -nosalt;
+openssl enc -camellia-256-cbc -k PracticasDeSeguridad2018 -in input.bin -out input_camellia_256_cbc_con_contra_nosalt.bin -nosalt;
+openssl enc -camellia-256-cbc -k PracticasDeSeguridad2018 -in input1.bin -out input1_camellia_256_cbc_con_contra_nosalt.bin -nosalt;
+openssl enc -camellia-256-ofb -k PracticasDeSeguridad2018 -in input.bin -out input_camellia_256_ofb_con_contra_nosalt.bin -nosalt;
+openssl enc -camellia-256-ofb -k PracticasDeSeguridad2018 -in input1.bin -out input1_camellia_256_ofb_con_contra_nosalt.bin -nosalt;
