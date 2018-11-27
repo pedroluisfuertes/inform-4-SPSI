@@ -1,0 +1,175 @@
+# Esta sección es mandatoria
+# le dice a OpenSSL que use las opciones de la sección [ CA_default ]
+[ ca ]
+# `man ca`
+default_ca = CA_default
+ 
+ 
+# Hay que asegurarse que las rutas aquí definidas existen antes de ejecutar Openssl
+[ CA_default ]
+# Localización de ficheros y directorios
+dir               = /home/pedro/Documents/git/inform-4-SPSI/p4/subordinada
+certs             = $dir/certs
+crl_dir           = $dir/crl
+new_certs_dir     = $dir/newcerts
+database          = $dir/index.txt
+serial            = $dir/serial
+RANDFILE          = $dir/private/.rand
+ 
+# la clave y certificado raíz
+private_key       = $dir/private/subordinada.key.pem
+certificate       = $dir/certs/subordinada.cert.pem
+ 
+# Para la lista de revocación de certificados
+crlnumber         = $dir/crlnumber
+crl               = $dir/crl/subordinada.crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+ 
+# SHA-1 está obsoleto, usar SHA2 en su lugar
+default_md        = sha256
+ 
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 365
+preserve          = no
+policy            = policy_loose
+ 
+ 
+# política estricta: la autoridad raíz es la única usada para crear
+# certificados intermedios
+# Esta política se usará en las firmas que realice al Autoridad Raíz
+# Esta política requiere que:
+#	- El país, la provincia y el nombre de la organización, deben coincidir
+#	  con los del certificado Raíz
+#	- El nombre ON, CN y email son obligatorios
+[ policy_strict ]
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = supplied
+commonName              = supplied
+emailAddress            = supplied
+ 
+ 
+# política relajada: Permite a las Autoridades Intermedias
+# firmar certificados de terceras partes
+# Esta política se usará en las firmas que realice la Autoridad Intermedia
+# Esta política requiere que:
+#	- Se exige la introducción de todos los campos
+#	- El ON debe coincidir con la Autoridad Certificadora Intermedia
+[ policy_loose ]
+countryName             = supplied
+stateOrProvinceName     = supplied
+localityName            = supplied
+organizationName        = match
+organizationalUnitName  = supplied
+commonName              = supplied
+emailAddress            = supplied
+ 
+ 
+# Estas opciones se aplican cuando se crean certificados
+# o hay peticiones de firmas de certificados
+[ req ]
+# Opciones para la herramienta `req` (`man req`).
+default_bits        = 4096
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+ 
+# SHA-1 está obsoleto, usar SHA2 en su lugar
+default_md          = sha256
+ 
+# Extensión a añadir cuando se usa la opción -x509
+x509_extensions     = v3_ca
+ 
+ 
+# Información requerida y por defecto cuando se firma un certificado
+[ req_distinguished_name ]
+countryName                     = Nombre del país (Código de 2 letras)
+stateOrProvinceName             = Provincia o Estado
+localityName                    = Nombre de la localidad
+0.organizationName              = Nombre de la organización
+organizationalUnitName          = Nombre de la unidad organizativa
+commonName                      = Nombre Común
+emailAddress                    = Correo electrónico
+ 
+# Opcionalmente se pueden especificar algunos valores por defecto
+countryName_default             = ES
+stateOrProvinceName_default     = Granada
+localityName_default            = Granada
+0.organizationName_default      = SPSI
+organizationalUnitName_default  = utoridad Certificadora de SPSI
+emailAddress_default            = plfuertes@correo.ugr.es
+ 
+ 
+# Estas extensiones se aplican cuando se firman certificados
+# hay que pasar `-extensions v3_ca` para aplicar esta opciones
+[ v3_ca ]
+# Extensiones para una típica CA (`man x509v3_config`).
+subjectKeyIdentifier 	= hash
+authorityKeyIdentifier 	= keyid:always,issuer
+basicConstraints 	= critical, CA:true
+keyUsage 		= critical, digitalSignature, cRLSign, keyCertSign
+ 
+ 
+# Esta sección se aplicará en la creación del certificado intermedio.
+# pathlen:0 <<-- Se asegura que el certificado intermedio no puede
+#                emitir otras autoridades intermedias
+[ v3_intermediate_ca ]
+# Extensiones típicas para una CA Intermedia (`man x509v3_config`).
+subjectKeyIdentifier 	= hash
+authorityKeyIdentifier 	= keyid:always,issuer
+basicConstraints 	= critical, CA:true, pathlen:0
+keyUsage 		= critical, digitalSignature, cRLSign, keyCertSign
+ 
+ 
+# Esta sección se aplicará al firmar certificados de clientes
+[ usr_cert ]
+# Extensiones para los certificados clientes (`man x509v3_config`).
+basicConstraints 	= CA:FALSE
+nsCertType 		= client, email
+nsComment 		= "OpenSSL Generated Client Certificate"
+subjectKeyIdentifier 	= hash
+authorityKeyIdentifier 	= keyid,issuer
+keyUsage 		= critical, nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage 	= clientAuth, emailProtection
+ 
+ 
+# Esta sección se aplicará al firmar certificados de servidores
+[ server_cert ]
+# Extensiones para certificados de servidores (`man x509v3_config`).
+basicConstraints 	= CA:FALSE
+nsCertType 		= server
+nsComment 		= "OpenSSL Generated Server Certificate"
+subjectKeyIdentifier 	= hash
+authorityKeyIdentifier 	= keyid,issuer:always
+keyUsage 		= critical, digitalSignature, keyEncipherment
+extendedKeyUsage 	= serverAuth
+ 
+ 
+# esta sección lo único que hace es firmar y asegurarse que
+# lleva los atributos que yo estimo oportunos
+[ only_sign ]
+basicConstraints 	= CA:FALSE
+nsComment 		= "OpenSSL Generated Server Certificate"
+subjectKeyIdentifier 	= hash
+authorityKeyIdentifier 	= keyid,issuer:always
+ 
+ 
+# esta sección se aplica al crear listas de certificados de revocación
+[ crl_ext ]
+# Extension for CRLs (`man x509v3_config`).
+authorityKeyIdentifier	= keyid:always
+ 
+ 
+# Esta sección se aplicará cuando se firmen certificados de
+#   Protocolo de Estado de Certificados en línea
+#   Online Certificate Status Protocol 
+[ ocsp ]
+# Extensión para firma de certificados OCSP (`man ocsp`).
+basicConstraints 	= CA:FALSE
+subjectKeyIdentifier 	= hash
+authorityKeyIdentifier 	= keyid,issuer
+keyUsage 		= critical, digitalSignature
+extendedKeyUsage 	= critical, OCSPSigning
+copy_extensions = copy

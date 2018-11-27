@@ -1,0 +1,1 @@
+V	281121173738Z		1000	unknown	/C=ES/ST=Granada/O=SPSI/OU=utoridad Certificadora de SPSI/CN=SPSI Autoridad Certificadora Intermedia/emailAddress=plfuertes@correo.ugr.es

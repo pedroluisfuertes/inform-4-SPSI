@@ -1,0 +1,2 @@
+V	191126100000Z		1001	unknown	/C=ES/ST=Granada/L=Granada/O=SPSI/OU=utoridad Certificadora de SPSI/CN=Cliente/emailAddress=plfuertes@correo.ugr.es
+V	191127130833Z		1002	unknown	/C=ES/ST=Granada/L=Granada/O=SPSI/OU=utoridad Certificadora de SPSI/CN=Cliente con clave DSA/emailAddress=plfuertes@correo.ugr.es
